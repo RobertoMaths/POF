@@ -1,0 +1,23 @@
+{
+  "name": "proyecto",
+  "version": "1.0.0",
+  "description": "Este proyecto, trata de una página web, con todo tipo de contenido, exceptuando contenido violento y demás.",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RobertoMaths/POF.git"
+  },
+  "keywords": [
+    "POF"
+  ],
+  "author": "RobertoMaths",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RobertoMaths/POF/issues"
+  },
+  "homepage": "https://github.com/RobertoMaths/POF#readme"
+}
