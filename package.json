@@ -4,6 +4,7 @@
   "description": "Este proyecto, trata de una página web, con todo tipo de contenido, exceptuando contenido violento y demás.",
   "main": "server.js",
   "scripts": {
+    "dev": "nodemon server.js",
     "test": "node server.js",
     "start": "node server.js"
   },
@@ -19,5 +20,11 @@
   "bugs": {
     "url": "https://github.com/RobertoMaths/POF/issues"
   },
-  "homepage": "https://github.com/RobertoMaths/POF#readme"
+  "homepage": "https://github.com/RobertoMaths/POF#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "express": "^4.17.2"
+  }
 }
