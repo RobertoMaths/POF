@@ -31,7 +31,6 @@ const WebPage = ()=> {
             <Route path="/explorar" element={<Explorar/>}/>
             <Route path="/perfil" element={<Perfil/>}/>
         </Routes>
-        <Footer/>
     </Router>
 };
 
