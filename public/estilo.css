@@ -1,0 +1,132 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Estilo de la navegación */
+
+nav {
+    display: flex;
+    padding: 10px 20px;
+}
+
+nav > a {
+    flex-grow: 5;
+}
+
+.nav-lista {
+    display: flex;
+    flex-grow: 6;
+    flex-wrap: wrap;
+}
+
+.nav-lista__item {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+/* Estilo de la página principal */
+
+.homepage-main {
+    display: flex;
+    padding: 60px 20px;
+    height: calc(100vh - 50px);
+}
+
+.homepage-main > div {
+    width: 50%;
+    height: 100%;
+    margin-right: 80px;
+}
+
+.homepage-main > div > h1 {
+    font-size: 50px;
+    padding-bottom: 40px;
+}
+
+.homepage-main > div > p {
+    width: 100%;
+    font-size: 20px;
+    line-height: 30px;
+}
+
+.homepage-main > div > div {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.homepage-main > div > div > a {
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 70px;
+}
+
+.homepage-main > div > div > a > button {
+    width: 100%;
+    height: 40px;
+}
+
+.homepage-main > img {
+    width: 50%;
+    object-fit: cover;
+}
+
+/* Estilo de la página de inicio de sesión y registro */
+
+.login-main, .registro-main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    padding: 50px 20px;
+}
+
+.login-main > h1, .registro-main > h1 {
+    width: 100%;
+    text-align: center;
+}
+
+.login-main > form, .registro-main > form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 30%;
+    margin-top: 70px;
+}
+
+.login-main > form > fieldset, .registro-main > form > fieldset {
+    width: 100%;
+    margin-bottom: 100px;
+}
+
+.login-main > form > fieldset > input, .registro-main > form > fieldset > input {
+    width: 100%;
+}
+
+.login-main > form > button, .registro-main > form > button {
+    width: 60%;
+    margin-top: -20px;
+    height: 30px;
+}
+
+.login-main > p, .registro-main > p {
+    margin-top: 20px;
+    width: 100%;
+    text-align: center;
+}

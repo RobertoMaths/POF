@@ -1,14 +1,11 @@
 const express = require("express");
-const path = require("path");
 const MainRouter = require("./rutas/main");
 const server = express();
+require("./config/database");
 
 // Configuración
 
 server.set("port", 3000);
-server.set("views",path.join(__dirname,"vistas"))
-server.engine("html",require("ejs").renderFile)
-server.set("view engine","ejs")
 
 // Middlewares
 
