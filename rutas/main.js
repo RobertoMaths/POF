@@ -277,4 +277,39 @@ Router.post("/upload",verificarJWT,(req,res)=> {
     }
 })
 
+Router.post("/cambiarImagen",verificarJWT,(req,res)=> {
+    if (!req.files || Object.keys(req.files).length === 0) {
+        return res.status(400).redirect("/cambiarImagen?error=No se subió ningún archivo")
+    }
+    const archivo = req.files.archivo;
+    const [tipo,ext] = archivo.mimetype.split("/");
+    archivo.mv(path.resolve(__dirname,`../public/${req.usuario}/${archivo.mimetype}/${archivo.name}`),(error)=> {
+        if (error && error.message.startsWith("ENOENT: no such file or directory")) {
+            verificarRutas(req.usuario,tipo,ext);
+            archivo.mv(path.resolve(__dirname,`../public/${req.usuario}/${archivo.mimetype}/${archivo.name}`),(error)=> {
+                if (error) {
+                    return res.redirect(`/cambiarImagen?error=${error.message}`);
+                }
+                Pool.query(`UPDATE usuarios SET imagen = "/${req.usuario}/${archivo.mimetype}/${archivo.name}" WHERE nombre = "${req.usuario}"`,(error)=> {
+                    if (error) {
+                        return res.redirect(`/cambiarImagen?error=${error.message}`);
+                    }
+                    return res.redirect("/cambiarImagen?msg=Se subió el archivo");
+                })
+            })
+        }
+        else if (error) {
+            return res.redirect(`/cambiarImagen?error=${error.message}`);
+        }
+        else {
+            Pool.query(`UPDATE usuarios SET imagen = "/${req.usuario}/${archivo.mimetype}/${archivo.name}" WHERE nombre = "${req.usuario}"`,(error)=> {
+                if (error) {
+                    return res.redirect(`/cambiarImagen?error=${error.message}`);
+                }
+                return res.redirect("/cambiarImagen?msg=Se subió el archivo");
+            })
+        }
+    });
+})
+
 module.exports = Router;

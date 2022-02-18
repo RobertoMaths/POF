@@ -11,6 +11,7 @@ import Perfil from "./componentes/perfil";
 import UploadPage from "./componentes/upload";
 import ShowPage from "./componentes/show";
 import PerfilDeUsuario from "./componentes/perfilDeUsuario";
+import CambiarImágen from "./componentes/cambiarImágen";
 
 const WebPage = ()=> {
     const [autorizado,setAutorizado] = useState(false);
@@ -38,7 +39,9 @@ const WebPage = ()=> {
             <Route path="/upload" element={<UploadPage setPathname={setPathname}/>}/>
             <Route path="/:usr/:tipo/:ext/:nombre/show" element={<ShowPage setPathname={setPathname}/>}/>
             <Route path="/usuario/:usr" element={<PerfilDeUsuario setPathname={setPathname}/>}/>
+            <Route path="/cambiarImagen" element={<CambiarImágen setPathname={setPathname}/>}/>
         </Routes>
+        <Footer></Footer>
     </Router>
 };
 

@@ -40,12 +40,35 @@ nav > a {
     flex-grow: 1;
 }
 
+footer {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding: 10px 20px;
+    color: #fff;
+    background-color: #000;
+}
+
+footer > h2 {
+    display: inline-block;
+}
+
+footer > div {
+    display: inline-block;
+    text-align: right;
+    margin-left: auto;
+}
+
+footer > div > a {
+    display: block;
+}
+
 /* Estilo de la página principal */
 
 .homepage-main {
     display: flex;
     padding: 60px 20px;
-    height: calc(100vh - 50px);
+    min-height: calc(100vh - 50px);
 }
 
 .homepage-main > div {
@@ -96,6 +119,7 @@ nav > a {
     justify-content: center;
     width: 100%;
     padding: 50px 20px;
+    min-height: calc(100vh - 50px);
 }
 
 .login-main > h1, .registro-main > h1 {
@@ -138,6 +162,7 @@ nav > a {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    min-height: calc(100vh - 50px);
 }
 
 .perfil-main > img {
@@ -183,11 +208,14 @@ nav > a {
     margin-bottom: 30px;
 }
 
+/* Estilo de página upload */
+
 .upload-main {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     text-align: center;
+    min-height: calc(100vh - 50px);
 }
 
 .upload-main > h1 {
@@ -225,10 +253,13 @@ nav > a {
     height: 30px;
 }
 
+/* Estilo de página de exploración */
+
 .explorar-main {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    min-height: calc(100vh - 50px);
 }
 
 .explorar-main > h1 {
@@ -274,10 +305,13 @@ nav > a {
     font-weight: bold;
 }
 
+/* Estilo de página de muestra del contenido */
+
 .show-main {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    min-height: calc(100vh - 50px);
 }
 
 .show-main > h1 {

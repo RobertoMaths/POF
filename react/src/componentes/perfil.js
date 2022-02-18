@@ -37,6 +37,7 @@ const Perfil = ({setPathname})=> {
 
     return <main className="perfil-main">
         <img src={img}></img>
+        <Link to="/cambiarImagen"><button>Cambiar imágen de perfil</button></Link>
         <h1>{usuario}</h1>
         <h2>Contenido</h2>
         {
