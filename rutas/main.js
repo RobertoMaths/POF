@@ -19,6 +19,13 @@ const verificarRutas = (usuario,tipo,extensión)=> {
     }
 }
 
+const verificarSQLInjection = (text)=> {
+    if (text.has(`"`) || text.has(`;`)) {
+        return `"-`
+    }
+    return text;
+}
+
 Router.use(fileUpload());
 
 Router.get("/index.js",(req,res)=> {
@@ -48,7 +55,7 @@ Router.get("/autorizacion",verificarJWT,(req,res)=> {
 
 Router.get("/usuario",verificarJWT,(req,res)=> {
     if (req.sesión) {
-        Pool.query(`SELECT tipo, nombre, titulo FROM archivos WHERE autor = "${req.usuario}" UNION SELECT nombre, imagen, correo FROM usuarios WHERE nombre = "${req.usuario}"`,(error,rows,fields)=> {
+        Pool.query(`SELECT tipo, nombre, titulo FROM archivos WHERE autor = "${verificarSQLInjection(req.usuario)}" UNION SELECT nombre, imagen, correo FROM usuarios WHERE nombre = "${verificarSQLInjection(req.usuario)}"`,(error,rows,fields)=> {
             if (error) {
                 console.log(error);
                 return res.json({error: true, message: error.message});
@@ -73,7 +80,7 @@ Router.get("/usuario",verificarJWT,(req,res)=> {
 })
 
 Router.get("/:usr/:tipo/:ext/:nombre/portada",(req,res)=> {
-    Pool.query(`SELECT portada FROM archivos WHERE autor = "${req.params.usr}" AND tipo = "${req.params.tipo}/${req.params.ext}" AND nombre = "${req.params.nombre}"`,(error,rows,fields)=> {
+    Pool.query(`SELECT portada FROM archivos WHERE autor = "${verificarSQLInjection(req.params.usr)}" AND tipo = "${verificarSQLInjection(req.params.tipo)}/${verificarSQLInjection(req.params.ext)}" AND nombre = "${verificarSQLInjection(req.params.nombre)}"`,(error,rows,fields)=> {
         if (error) {
             console.log(error);
             return res.send("/5571.jpg");
@@ -83,7 +90,7 @@ Router.get("/:usr/:tipo/:ext/:nombre/portada",(req,res)=> {
 })
 
 Router.get("/usuario/:usr/info",(req,res)=> {
-    Pool.query(`SELECT tipo, nombre, titulo FROM archivos WHERE autor = "${req.params.usr}" UNION SELECT nombre, imagen, correo FROM usuarios WHERE nombre = "${req.params.usr}"`,(error,rows,fields)=> {
+    Pool.query(`SELECT tipo, nombre, titulo FROM archivos WHERE autor = "${verificarSQLInjection(req.params.usr)}" UNION SELECT nombre, imagen, correo FROM usuarios WHERE nombre = "${verificarSQLInjection(req.params.usr)}"`,(error,rows,fields)=> {
         if (error) {
             console.log(error);
             return res.json({error: true, message: error.message});
@@ -121,7 +128,7 @@ Router.get("*", (req,res)=> {
 })
 
 Router.post("/login",(req,res)=> {
-    Pool.query(`SELECT nombre, contraseña FROM usuarios WHERE nombre = "${req.body.usuario}"`,(error,rows,fields)=> {
+    Pool.query(`SELECT nombre, contraseña FROM usuarios WHERE nombre = "${verificarSQLInjection(req.body.usuario)}"`,(error,rows,fields)=> {
         if (error) {
             console.log(error.message);
             return res.json({error: true, message: error.message});
@@ -141,7 +148,7 @@ Router.post("/login",(req,res)=> {
 Router.post("/registro",(req,res)=> {
     const hash = genContraseña(req.body.contraseña);
     if (req.body.correo) {
-        Pool.query(`INSERT INTO usuarios (nombre,correo,contraseña) VALUES ("${req.body.usuario}","${req.body.correo}","${hash}");`,(error)=> {
+        Pool.query(`INSERT INTO usuarios (nombre,correo,contraseña) VALUES ("${verificarSQLInjection(req.body.usuario)}","${verificarSQLInjection(req.body.correo)}","${verificarSQLInjection(hash)}");`,(error)=> {
             if (error) {
                 console.log(error.message);
                 return res.json({error: true, message: error.message})
@@ -154,7 +161,7 @@ Router.post("/registro",(req,res)=> {
         });
     }
     else {
-        Pool.query(`INSERT INTO usuarios (nombre,contraseña) VALUES ("${req.body.usuario}","${hash}");`,(error)=> {
+        Pool.query(`INSERT INTO usuarios (nombre,contraseña) VALUES ("${verificarSQLInjection(req.body.usuario)}","${verificarSQLInjection(hash)}");`,(error)=> {
             if (error) {
                 console.log(error);
                 return res.json({error: true, message: error.message})
@@ -174,7 +181,7 @@ Router.post("/upload",verificarJWT,(req,res)=> {
     }
     const archivo = req.files.archivo;
     if (archivo.mimetype.startsWith("image") || !req.files.portada) {
-        Pool.query(`INSERT INTO archivos (nombre,tipo,autor,titulo) VALUES ("${archivo.name}","${archivo.mimetype}","${req.usuario}","${req.body.titulo}")`,(error)=> {
+        Pool.query(`INSERT INTO archivos (nombre,tipo,autor,titulo) VALUES ("${verificarSQLInjection(archivo.name)}","${verificarSQLInjection(archivo.mimetype)}","${verificarSQLInjection(req.usuario)}","${verificarSQLInjection(req.body.titulo)}")`,(error)=> {
             if (error) return res.redirect(`/upload?error=${error.message}`);
             archivo.mv(path.resolve(__dirname,`../public/${req.usuario}/${archivo.mimetype}/${archivo.name}`),(error)=> {
                 if (error && error.message.startsWith("ENOENT: no such file or directory")) {
@@ -190,7 +197,7 @@ Router.post("/upload",verificarJWT,(req,res)=> {
                 }
                 else if (error) {
                     console.log(error.message)
-                    Pool.query(`DELETE FROM archivos WHERE titulo = "${req.body.titulo}"`,(error)=> {
+                    Pool.query(`DELETE FROM archivos WHERE titulo = "${verificarSQLInjection(req.body.titulo)}"`,(error)=> {
                         if (error) {
                             console.log(error);
                         }
@@ -204,7 +211,7 @@ Router.post("/upload",verificarJWT,(req,res)=> {
     else if (archivo.mimetype.startsWith("audio")) {
         const portada = req.files.portada;
 
-        Pool.query(`INSERT INTO archivos (nombre,tipo,autor,portada,titulo) VALUES ("${archivo.name}","${archivo.mimetype}","${req.usuario}","/${req.usuario}/${portada.mimetype}/${portada.name}","${req.body.titulo}")`,(error)=> {
+        Pool.query(`INSERT INTO archivos (nombre,tipo,autor,portada,titulo) VALUES ("${verificarSQLInjection(archivo.name)}","${verificarSQLInjection(archivo.mimetype)}","${verificarSQLInjection(req.usuario)}","/${verificarSQLInjection(req.usuario)}/${verificarSQLInjection(portada.mimetype)}/${verificarSQLInjection(portada.name)}","${verificarSQLInjection(req.body.titulo)}")`,(error)=> {
             if (error) return res.redirect(`/upload?error=${error.message}`);
             archivo.mv(path.resolve(__dirname,`../public/${req.usuario}/${archivo.mimetype}/${archivo.name}`),(error)=> {
                 if (error && error.message.startsWith("ENOENT: no such file or directory")) {
@@ -229,7 +236,7 @@ Router.post("/upload",verificarJWT,(req,res)=> {
                             }
                             else if (error) {
                                 console.log(error.message)
-                                return Pool.query(`DELETE FROM archivos WHERE titulo = "${req.body.titulo}"`,(error)=> {
+                                return Pool.query(`DELETE FROM archivos WHERE titulo = "${verificarSQLInjection(req.body.titulo)}"`,(error)=> {
                                     if (error) {
                                         console.log(error);
                                     }
@@ -242,7 +249,7 @@ Router.post("/upload",verificarJWT,(req,res)=> {
                 }
                 else if (error) {
                     console.log(error.message)
-                    Pool.query(`DELETE FROM archivos WHERE titulo = "${req.body.titulo}"`,(error)=> {
+                    Pool.query(`DELETE FROM archivos WHERE titulo = "${verificarSQLInjection(req.body.titulo)}"`,(error)=> {
                         if (error) {
                             console.log(error);
                         }
@@ -263,7 +270,7 @@ Router.post("/upload",verificarJWT,(req,res)=> {
                     }
                     else if (error) {
                         console.log(error.message)
-                        Pool.query(`DELETE FROM archivos WHERE titulo = "${req.body.titulo}"`,(error)=> {
+                        Pool.query(`DELETE FROM archivos WHERE titulo = "${verificarSQLInjection(req.body.titulo)}"`,(error)=> {
                             if (error) {
                                 console.log(error);
                             }
@@ -290,7 +297,7 @@ Router.post("/cambiarImagen",verificarJWT,(req,res)=> {
                 if (error) {
                     return res.redirect(`/cambiarImagen?error=${error.message}`);
                 }
-                Pool.query(`UPDATE usuarios SET imagen = "/${req.usuario}/${archivo.mimetype}/${archivo.name}" WHERE nombre = "${req.usuario}"`,(error)=> {
+                Pool.query(`UPDATE usuarios SET imagen = "/${verificarSQLInjection(req.usuario)}/${verificarSQLInjection(archivo.mimetype)}/${verificarSQLInjection(archivo.name)}" WHERE nombre = "${verificarSQLInjection(req.usuario)}"`,(error)=> {
                     if (error) {
                         return res.redirect(`/cambiarImagen?error=${error.message}`);
                     }
@@ -302,7 +309,7 @@ Router.post("/cambiarImagen",verificarJWT,(req,res)=> {
             return res.redirect(`/cambiarImagen?error=${error.message}`);
         }
         else {
-            Pool.query(`UPDATE usuarios SET imagen = "/${req.usuario}/${archivo.mimetype}/${archivo.name}" WHERE nombre = "${req.usuario}"`,(error)=> {
+            Pool.query(`UPDATE usuarios SET imagen = "/${verificarSQLInjection(req.usuario)}/${verificarSQLInjection(archivo.mimetype)}/${verificarSQLInjection(archivo.name)}" WHERE nombre = "${verificarSQLInjection(req.usuario)}"`,(error)=> {
                 if (error) {
                     return res.redirect(`/cambiarImagen?error=${error.message}`);
                 }
