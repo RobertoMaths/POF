@@ -1,4 +1,5 @@
 const express = require("express");
+const fileUpload = require("express-fileupload");
 const MainRouter = require("./rutas/main");
 const server = express();
 require("./config/database");
@@ -11,6 +12,9 @@ server.set("port", 3000);
 
 server.use(express.static(__dirname + "/public"));
 server.use(express.json());
+server.use(express.urlencoded({
+    extended: true
+}));
 
 // Rutas
 

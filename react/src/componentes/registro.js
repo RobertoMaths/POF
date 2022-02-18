@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 
-const Registro = ()=> {
+const Registro = ({setPathname})=> {
     const [usuario,setUsuario] = useState("");
     const [correo,setCorreo] = useState("");
     const [contraseña,setContraseña] = useState("");
@@ -10,6 +10,8 @@ const Registro = ()=> {
     const [error,setError] = useState(false);
     const [mensaje,setMensaje] = useState("");
     const navigate = useNavigate();
+
+    useEffect(()=> setPathname("/registro"),[])
 
     const Registrarse = async (e)=> {
         e.preventDefault();

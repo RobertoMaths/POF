@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Link} from "react-router-dom";
 
 const Main = ()=> {
@@ -15,10 +15,9 @@ const Main = ()=> {
     </main>
 }
 
-const HomePage = ()=> {
-    return <Main>
-
-    </Main>
+const HomePage = ({setPathname})=> {
+    useEffect(()=> setPathname("/"),[])
+    return <Main></Main>
 };
 
 export default HomePage;

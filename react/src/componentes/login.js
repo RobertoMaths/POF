@@ -1,12 +1,14 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 
-const LoginPage = ()=> {
+const LoginPage = ({setPathname})=> {
     const [usuario,setUsuario] = useState("");
     const [contraseña,setContraseña] = useState("");
     const [error,setError] = useState(false);
     const [mensaje,setMensaje] = useState("");
     const navigate = useNavigate();
+
+    useEffect(()=> setPathname("/login"),[])
 
     const IniciarSesión = async (e)=> {
         e.preventDefault();

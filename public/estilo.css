@@ -19,6 +19,7 @@ a {
 nav {
     display: flex;
     padding: 10px 20px;
+    border-bottom: solid black 2px;
 }
 
 nav > a {
@@ -129,4 +130,191 @@ nav > a {
     margin-top: 20px;
     width: 100%;
     text-align: center;
+}
+
+/* Estilo de la página de perfil */
+
+.perfil-main {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.perfil-main > img {
+    margin-top: 50px;
+    border-radius: 50%;
+    margin-left: 30%;
+    margin-right: 30%;
+    object-fit: cover;
+    min-width: 100px;
+    min-height: 100px;
+    width: 20vw;
+    height: 20vw;
+}
+
+.perfil-main > h1 {
+    margin-top: 20px;
+    margin-left: 100%;
+    margin-right: 100%;
+}
+
+.perfil-main > h2 {
+    margin-top: 30px;
+    margin-left: 100%;
+    margin-right: 100%;
+}
+
+.perfil-main > h3 {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.perfil-main > a {
+    margin-left: 100%;
+    margin-right: 100%;
+    min-width: max-content;
+    margin-top: 50px;
+}
+
+.perfil-main > a > button {
+    width: 200px;
+    height: 50px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.upload-main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+}
+
+.upload-main > h1 {
+    min-width: max-content;
+    margin-top: 50px;
+    margin-right: 100%;
+    margin-left: 100%;
+}
+
+.upload-main > div {
+    min-width: max-content;
+    margin-top: 50px;
+    margin-right: 100%;
+    margin-left: 100%;
+    margin-bottom: 50px;
+}
+
+.upload-main > div > form {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.upload-main > div > form > fieldset {
+    min-width: max-content;
+    margin-top: 50px;
+    margin-right: 100%;
+    margin-left: 100%;
+    margin-bottom: 50px;
+}
+
+.upload-main > div > form > button {
+    width: 100px;
+    height: 30px;
+}
+
+.explorar-main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.explorar-main > h1 {
+    text-align: center;
+    margin-left: 100%;
+    margin-right: 100%;
+    margin-top: 50px;
+}
+
+.explorar-main > h3 {
+    min-width: max-content;
+    text-align: center;
+    margin-left: 100%;
+    margin-right: 100%;
+    margin-top: 40px;
+}
+
+.explorar-main > div, .perfil-main > div {
+    margin-top: 40px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.explorar-main > div > a, .perfil-main > div > a {
+    min-width: 200px;
+    max-width: 300px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 50px;
+}
+
+.explorar-main > div > a > img, .perfil-main > div > a > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.explorar-main > div > a > p, .perfil-main > div > a > p {
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.show-main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.show-main > h1 {
+    min-width: max-content;
+    margin-left: 100%;
+    margin-right: 100%;
+    margin-top: 50px;
+}
+
+.show-main > a {
+    min-width: max-content;
+    margin-left: 100%;
+    margin-right: 100%;
+    margin-top: 30px;
+}
+
+.show-main > img {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.show-main > div {
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.show-main > div > img {
+    margin-left: 100%;
+    margin-right: 100%;
+    min-width: max-content;
+}
+
+.show-main > div > audio {
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
